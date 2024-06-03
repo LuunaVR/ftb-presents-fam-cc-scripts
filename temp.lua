@@ -1,4 +1,4 @@
--- TurtleController.lua
+-- TurtleController
 local TurtleController = {}
 TurtleController.__index = TurtleController
 
@@ -38,7 +38,7 @@ local function update_coordinates(self, movement)
     end
 end
 
-function TurtleController:move(movement)
+function TurtleController.move(self, movement)
     if movement == "forward" then
         while turtle.detect() do
             turtle.dig()
@@ -73,15 +73,15 @@ function TurtleController:move(movement)
     return false
 end
 
-function TurtleController:getPosition()
+function TurtleController.getPosition(self)
     return {x = self.x, y = self.y, z = self.z}
 end
 
-function TurtleController:getDirection()
+function TurtleController.getDirection(self)
     return self.direction
 end
 
-function TurtleController:go(direction, amount)
+function TurtleController.go(self, direction, amount)
     direction = direction:lower()
     local success = true
 
@@ -109,7 +109,7 @@ function TurtleController:go(direction, amount)
     return success
 end
 
-function TurtleController:goTo(targetX, targetY, targetZ)
+function TurtleController.goTo(self, targetX, targetY, targetZ)
     local success = true
     local deltaX = targetX - self.x
     local deltaY = targetY - self.y
