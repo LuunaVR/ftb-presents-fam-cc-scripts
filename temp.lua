@@ -104,8 +104,10 @@ local function navigateTurtle(locations)
     end
 
     -- Return to the starting location (0, 0, 0) and ensure facing North
-    moveTo(0, 0, 0, currentX, currentY, currentZ, currentDirection)
-    turnTo(0, currentDirection)  -- Ensure facing North at the end
+    currentX, currentY, currentZ, currentDirection = moveTo(0, 0, 0, currentX, currentY, currentZ, currentDirection)
+    if currentDirection ~= 0 then
+        turnTo(0, currentDirection)  -- Ensure facing North at the end
+    end
 
     return totalDistance, order
 end
