@@ -49,7 +49,7 @@ local function moveTo(nextX, nextY, nextZ, currentX, currentY, currentZ, current
     end
 
     -- Adjust the y-coordinate only when directly over the target block
-    if dx == 0 and dz == 0 then
+    if dx == 0 and dz == 0 and currentX == nextX and currentZ == nextZ then
         local targetY = nextY - 1
         local dy = targetY - currentY
         if dy > 0 then
@@ -58,8 +58,8 @@ local function moveTo(nextX, nextY, nextZ, currentX, currentY, currentZ, current
             for i = 1, -dy do turtle.down() end
         end
 
-        -- Perform the digging action upwards
-        turtle.digUp()
+        -- Perform the action of placing upwards
+        turtle.placeUp()
     end
 
     return nextX, nextY, nextZ, currentDirection
@@ -104,7 +104,7 @@ local function navigateTurtle(locations)
     end
 
     -- Return to the starting location (0, 0, 0) and ensure facing North
-    currentX, currentY, currentZ, currentDirection = moveTo(0, 0, 0, currentX, currentY, currentZ, currentDirection)
+    moveTo(0, 0, 0, currentX, currentY, currentZ, currentDirection)
     if currentDirection ~= 0 then
         turnTo(0, currentDirection)  -- Ensure facing North at the end
     end
