@@ -1,50 +1,62 @@
--- TurtleController
+-- TurtleController.lua
 local TurtleController = {}
 TurtleController.__index = TurtleController
 
+-- Create a new instance of TurtleController
 function TurtleController.new()
-    local self = setmetatable({}, TurtleController)
-    self.x = 0
-    self.y = 0
-    self.z = 0
-    self.direction = "north"
-    return self
+    local controller = {
+        x = 0,
+        y = 0,
+        z = 0,
+        direction = "north"
+    }
+    setmetatable(controller, TurtleController)
+    return controller
 end
 
-local directions = {"north", "east", "south", "west"}
-local direction_indices = {north = 1, east = 2, south = 3, west = 4}
+-- Update the direction the turtle is facing
+local function update_direction(controller, turn)
+    local directions = {"north", "east", "south", "west"}
+    local idx = 1
+    for i, dir in ipairs(directions) do
+        if dir == controller.direction then
+            idx = i
+            break
+        end
+    end
 
-local function update_direction(self, turn)
-    local idx = direction_indices[self.direction]
     if turn == "left" then
         idx = (idx - 2) % 4 + 1
     elseif turn == "right" then
         idx = idx % 4 + 1
     end
-    self.direction = directions[idx]
+
+    controller.direction = directions[idx]
 end
 
-local function update_coordinates(self, movement)
+-- Update the coordinates based on the movement direction
+local function update_coordinates(controller, movement)
     if movement == "forward" then
-        if self.direction == "north" then
-            self.z = self.z - 1
-        elseif self.direction == "east" then
-            self.x = self.x + 1
-        elseif self.direction == "south" then
-            self.z = self.z + 1
-        elseif self.direction == "west" then
-            self.x = self.x - 1
+        if controller.direction == "north" then
+            controller.z = controller.z - 1
+        elseif controller.direction == "east" then
+            controller.x = controller.x + 1
+        elseif controller.direction == "south" then
+            controller.z = controller.z + 1
+        elseif controller.direction == "west" then
+            controller.x = controller.x - 1
         end
     end
 end
 
-function TurtleController.move(self, movement)
+-- Move the turtle forward, up, down, or turn left/right
+function TurtleController.move(controller, movement)
     if movement == "forward" then
         while turtle.detect() do
             turtle.dig()
         end
         if turtle.forward() then
-            update_coordinates(self, "forward")
+            update_coordinates(controller, "forward")
             return true
         end
     elseif movement == "up" then
@@ -52,7 +64,7 @@ function TurtleController.move(self, movement)
             turtle.digUp()
         end
         if turtle.up() then
-            self.y = self.y + 1
+            controller.y = controller.y + 1
             return true
         end
     elseif movement == "down" then
@@ -60,47 +72,54 @@ function TurtleController.move(self, movement)
             turtle.digDown()
         end
         if turtle.down() then
-            self.y = self.y - 1
+            controller.y = controller.y - 1
             return true
         end
-    elseif movement == "left" and turtle.turnLeft() then
-        update_direction(self, "left")
-        return true
-    elseif movement == "right" and turtle.turnRight() then
-        update_direction(self, "right")
-        return true
+    elseif movement == "left" then
+        if turtle.turnLeft() then
+            update_direction(controller, "left")
+            return true
+        end
+    elseif movement == "right" then
+        if turtle.turnRight() then
+            update_direction(controller, "right")
+            return true
+        end
     end
     return false
 end
 
-function TurtleController.getPosition(self)
-    return {x = self.x, y = self.y, z = self.z}
+-- Get the current position of the turtle
+function TurtleController.getPosition(controller)
+    return {x = controller.x, y = controller.y, z = controller.z}
 end
 
-function TurtleController.getDirection(self)
-    return self.direction
+-- Get the current direction the turtle is facing
+function TurtleController.getDirection(controller)
+    return controller.direction
 end
 
-function TurtleController.go(self, direction, amount)
+-- Move the turtle in the specified direction by the given amount
+function TurtleController.go(controller, direction, amount)
     direction = direction:lower()
     local success = true
 
     if direction == "n" or direction == "north" then
-        while self.direction ~= "north" do success = self:move("left") and success end
-        for i = 1, amount do success = self:move("forward") and success end
+        while controller.direction ~= "north" do success = TurtleController.move(controller, "left") and success end
+        for i = 1, amount do success = TurtleController.move(controller, "forward") and success end
     elseif direction == "s" or direction == "south" then
-        while self.direction ~= "south" do success = self:move("left") and success end
-        for i = 1, amount do success = self:move("forward") and success end
+        while controller.direction ~= "south" do success = TurtleController.move(controller, "left") and success end
+        for i = 1, amount do success = TurtleController.move(controller, "forward") and success end
     elseif direction == "e" or direction == "east" then
-        while self.direction ~= "east" do success = self:move("right") and success end
-        for i = 1, amount do success = self:move("forward") and success end
+        while controller.direction ~= "east" do success = TurtleController.move(controller, "right") and success end
+        for i = 1, amount do success = TurtleController.move(controller, "forward") and success end
     elseif direction == "w" or direction == "west" then
-        while self.direction ~= "west" do success = self:move("right") and success end
-        for i = 1, amount do success = self:move("forward") and success end
+        while controller.direction ~= "west" do success = TurtleController.move(controller, "right") and success end
+        for i = 1, amount do success = TurtleController.move(controller, "forward") and success end
     elseif direction == "up" then
-        for i = 1, amount do success = self:move("up") and success end
+        for i = 1, amount do success = TurtleController.move(controller, "up") and success end
     elseif direction == "down" then
-        for i = 1, amount do success = self:move("down") and success end
+        for i = 1, amount do success = TurtleController.move(controller, "down") and success end
     else
         success = false
         print("Invalid direction")
@@ -109,28 +128,29 @@ function TurtleController.go(self, direction, amount)
     return success
 end
 
-function TurtleController.goTo(self, targetX, targetY, targetZ)
+-- Move the turtle to the specified coordinates (x, y, z)
+function TurtleController.goTo(controller, targetX, targetY, targetZ)
     local success = true
-    local deltaX = targetX - self.x
-    local deltaY = targetY - self.y
-    local deltaZ = targetZ - self.z
+    local deltaX = targetX - controller.x
+    local deltaY = targetY - controller.y
+    local deltaZ = targetZ - controller.z
 
     if deltaY > 0 then
-        success = self:go("up", deltaY) and success
+        success = TurtleController.go(controller, "up", deltaY) and success
     elseif deltaY < 0 then
-        success = self:go("down", -deltaY) and success
+        success = TurtleController.go(controller, "down", -deltaY) and success
     end
 
     if deltaX > 0 then
-        success = self:go("east", deltaX) and success
+        success = TurtleController.go(controller, "east", deltaX) and success
     elseif deltaX < 0 then
-        success = self:go("west", -deltaX) and success
+        success = TurtleController.go(controller, "west", -deltaX) and success
     end
 
     if deltaZ > 0 then
-        success = self:go("south", deltaZ) and success
+        success = TurtleController.go(controller, "south", deltaZ) and success
     elseif deltaZ < 0 then
-        success = self:go("north", -deltaZ) and success
+        success = TurtleController.go(controller, "north", -deltaZ) and success
     end
 
     return success
