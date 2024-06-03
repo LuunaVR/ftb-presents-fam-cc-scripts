@@ -1,37 +1,35 @@
--- Function to move the turtle based on offset coordinates
-function moveTo(offsetX, offsetY, offsetZ)
-    -- Move up or down
-    if offsetY > 0 then
-        for i=1, offsetY do
-            turtle.up()
-        end
-    elseif offsetY < 0 then
-        for i=1, -offsetY do
-            turtle.down()
-        end
-    end
-
-    -- Move forward or backward
-    for i=1, math.abs(offsetX) do
-        if offsetX > 0 then
-            turtle.forward()
-        else
-            turtle.back()
-        end
-    end
-
-    -- Move right or left
-    for i=1, math.abs(offsetZ) do
-        if offsetZ > 0 then
-            turtle.turnRight()
-            turtle.forward()
+function move(direction, steps)
+    if steps < 0 then
+        if direction == "x" or direction == "z" then
             turtle.turnLeft()
-        else
             turtle.turnLeft()
+        end
+        steps = -steps
+    end
+    
+    for i=1, steps do
+        if direction == "y" then
+            if steps > 0 then
+                turtle.up()
+            else
+                turtle.down()
+            end
+        else
             turtle.forward()
-            turtle.turnRight()
         end
     end
+    
+    if direction == "x" or direction == "z" then
+        turtle.turnLeft()
+        turtle.turnLeft() -- Reset to original direction after reversing
+    end
+end
+
+function goToOffset(x, y, z)
+    -- Handle movement in the Z, X, and Y directions
+    move("z", z)
+    move("x", x)
+    move("y", y)
 end
 
 -- Coordinates list
@@ -42,12 +40,12 @@ local coords = {
 }
 
 -- Move to each set of coordinates
-for i, coord in ipairs(coords) do
-    moveTo(coord[1], coord[2], coord[3])
+for _, coord in ipairs(coords) do
+    goToOffset(unpack(coord))
 end
 
 -- Return to origin by moving in the opposite direction
 for i = #coords, 1, -1 do
     local coord = coords[i]
-    moveTo(-coord[1], -coord[2], -coord[3])
+    goToOffset(-coord[1], -coord[2], -coord[3])
 end
