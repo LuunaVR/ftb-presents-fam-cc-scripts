@@ -4,6 +4,7 @@ local turtle = TurtleController.new()
 print("Moving turtle to a specific coordinate...")
 turtle.goTo(turtle, 5, 3, -2)
 turtle.goTo(turtle, -3, -2, 4)
+turtle.goTo(turtle, 7, 9, -1)
 
 local position = turtle.getPosition(turtle)
 print("Position after goTo: x=" .. position.x .. ", y=" .. position.y .. ", z=" .. position.z)
