@@ -156,4 +156,17 @@ function TurtleController.goTo(controller, targetX, targetY, targetZ)
     return success
 end
 
+function TurtleController.returnToStart(controller)
+    -- Move to the starting position on the x, y, and z axes
+    local success = controller.goTo(controller, 0, 0, 0)
+
+    -- Ensure the turtle is facing north
+    while controller.direction ~= "north" do
+        controller.move(controller, "left")
+    end
+
+    return success
+end
+
+
 return TurtleController
