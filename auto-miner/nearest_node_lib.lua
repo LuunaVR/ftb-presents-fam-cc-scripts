@@ -1,55 +1,39 @@
-local NearestNodeLib = {}
-
--- Function to calculate the Manhattan distance between two points in 3D
-local function manhattanDistance(p1, p2)
-    return math.abs(p1.x - p2.x) + math.abs(p1.y - p2.y) + math.abs(p1.z - p2.z)
+local scanner = peripheral.find("geoScanner")
+local NearestNodeLib = require 'nearest_node_lib'
+ 
+local ignoreSet
+local ignoreList = {"bedrock", "deepslate", "dirt", "grass_block", "stone", "tuff", "turtle_advanced"}
+ 
+function init()
+  ignoreSet = {}
+  for _,blockName in ipairs(ignoreList) do
+    ignoreSet[blockName] = true
+  end
 end
 
--- Function to find the nearest unvisited node
-local function findNearestNode(currentNode, nodes, visited)
-    local minDistance = math.huge
-    local nearestNodeIndex = nil
-    for i, node in ipairs(nodes) do
-        if not visited[i] then
-            local distance = manhattanDistance(currentNode, node)
-            if distance < minDistance then
-                minDistance = distance
-                nearestNodeIndex = i
-            end
+function main()
+    init()
+    local scanResults = scanner.scan(7)
+    if not scanResults then
+        print("Scan failed or returned no results.")
+    end
+    
+    local filteredBlocks = {}
+    for _, block in ipairs(scanResults) do
+        local blockName = block.name:match("([^:]+)$")
+        if not ignoreSet[blockName] then
+            table.insert(filteredBlocks, {x = block.x, y = block.y, z = block.z})   
         end
-    end
-    return nearestNodeIndex, minDistance
+    end  
+    
+    print(filteredBlocks[1].x)
+      
+    local sequentialDistance = NearestNodeLib.sequentialDistance(filteredBlocks)
+    print("Total Sequential Distance: " .. sequentialDistance)
+    
+ 
+    local _, optimizedDistance = NearestNodeLib.sortAndCalculateDistance(filteredBlocks)                                        
+    print("Total Optimized Distance: " .. optimizedDistance)
 end
-
--- Function to perform the nearest node sort and calculate the total travel distance
-function NearestNodeLib.sortAndCalculateDistance(nodes)
-    local totalDistance = 0
-    local visited = {}
-    local currentNodeIndex = 1
-    local path = {nodes[currentNodeIndex]}
-    visited[currentNodeIndex] = true
-
-    for _ = 1, #nodes - 1 do
-        local nextNodeIndex, distance = findNearestNode(nodes[currentNodeIndex], nodes, visited)
-        if nextNodeIndex then
-            visited[nextNodeIndex] = true
-            currentNodeIndex = nextNodeIndex
-            table.insert(path, nodes[currentNodeIndex])
-            totalDistance = totalDistance + distance
-        else
-            break
-        end
-    end
-    return path, totalDistance
-end
-
--- Function to perform the first-to-last sequential traversal for a list of nodes without optimizing
-function NearestNodeLib.sequentialDistance(nodes)
-    local totalDistance = 0
-    for i = 1, #nodes - 1 do
-        totalDistance = totalDistance + manhattanDistance(nodes[i], nodes[i+1])
-    end
-    return totalDistance
-end
-
-return NearestNodeLib
+ 
+main()
