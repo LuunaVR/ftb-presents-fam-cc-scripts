@@ -21,20 +21,11 @@ function initializeScanner()
     end
  
     ignoreSet = {}
-    for _, blockName in ipairs(ignoreList) do
+    for _, blockName in ipairs(ignoreBlocks) do
         ignoreSet[blockName] = true
     end
  
     return true
-end
-
-local function isIgnored(oreName)
-    for _, v in ipairs(ignoreBlocks) do
-        if oreName:find(v) then
-            return true
-        end
-    end
-    return false
 end
 
 local function mineOres()
@@ -52,14 +43,13 @@ local function mineOres()
     
     for _, ore in ipairs(path) do
         local oreName = ore.name:match("([^:]+)$") -- Extract the name after the colon
-        if not isIgnored(oreName) then
-            print("Mining " .. oreName .. " at (" .. ore.x .. ", " .. ore.y .. ", " .. ore.z .. ")")
-            if controller.goTo(controller, ore.x, ore.y, ore.z) then
-                turtle.dig()
-            else
-                print("Failed to move to " .. oreName .. " at (" .. ore.x .. ", " .. ore.y .. ", " .. ore.z .. ")")
-            end
+        print("Mining " .. oreName .. " at (" .. ore.x .. ", " .. ore.y .. ", " .. ore.z .. ")")
+        if controller.goTo(controller, ore.x, ore.y, ore.z) then
+            turtle.dig()
+        else
+            print("Failed to move to " .. oreName .. " at (" .. ore.x .. ", " .. ore.y .. ", " .. ore.z .. ")")
         end
+
     end
 
     -- Return to start position
