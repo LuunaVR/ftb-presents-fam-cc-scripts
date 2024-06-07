@@ -3,7 +3,7 @@ local NearestNodeLib = require ("nearest_node_lib")
 
 local ignoreSet;
 local scanRadius = 8
-local ignoreOres = {
+local ignoreBlocks = {
     "bedrock", "deepslate", "dirt", "grass_block", "stone", "tuff", "turtle_advanced"
 }
 
@@ -29,7 +29,7 @@ function initializeScanner()
 end
 
 local function isIgnored(oreName)
-    for _, v in ipairs(ignoreOres) do
+    for _, v in ipairs(ignoreBlocks) do
         if oreName:find(v) then
             return true
         end
