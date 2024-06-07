@@ -11,8 +11,6 @@ function init()
     ignoreSet[blockName] = true
   end
 end
-
-init()
  
 function main()
     init()
