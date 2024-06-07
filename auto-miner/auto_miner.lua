@@ -1,7 +1,7 @@
 local TurtleController = require("turtle_controller")
 local NearestNodeLib = require ("nearest_node_lib")
 
-local ignoreSet;
+local ignoreSet, depth;
 local scanRadius = 8
 local ignoreBlocks = {
     "bedrock", "deepslate", "dirt", "grass_block", "stone", "tuff", "turtle_advanced"
@@ -13,7 +13,9 @@ local scanner = peripheral.find("geoScanner")
 function initializeScanner()
     term.setCursorPos(1, 1)
     print(string.rep(" ", term.getSize()))  -- Clear the line where cursor is positioned
- 
+
+    depth = 0;
+    
     scanner = peripheral.find("geoScanner")
     if not scanner then
         print("No geo scanner found. Please attach a geo scanner.")
@@ -28,7 +30,7 @@ function initializeScanner()
     return true
 end
 
-local function mineOres()
+function mineOres()
     local scanResults = scanner.scan(scanRadius)
 
     local filteredScanResults = {}
@@ -55,8 +57,31 @@ local function mineOres()
     controller.returnToStart(controller)
 end
 
-initializeScanner()
-mineOres()
+function main()
+    initializeScanner()
+    mineOres()
+
+    local reachedBottom = false
+    while not reachedBottom do
+        mineOres()
+        for i=1, scanRadius + scanRadius do
+            if not turtle.digDown() then
+                reachedBottom = true
+                break
+            end
+            turtle.down()
+            depth = depth + 1
+        end
+    end
+
+    controller.returnToStart(controller)
+    for i=1, depth do
+        turtle.up()
+    end
+
+end
+
+
 -- Run the mining operation continuously
 --while true do
 --    mineOres()
