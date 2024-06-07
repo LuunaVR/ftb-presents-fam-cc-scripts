@@ -42,12 +42,11 @@ local function mineOres()
     local path, distance = NearestNodeLib.sortAndCalculateDistance(filteredScanResults)
     
     for _, ore in ipairs(path) do
-        local oreName = ore.name:match("([^:]+)$") -- Extract the name after the colon
-        print("Mining " .. oreName .. " at (" .. ore.x .. ", " .. ore.y .. ", " .. ore.z .. ")")
+        print("Mining at (" .. ore.x .. ", " .. ore.y .. ", " .. ore.z .. ")")
         if controller.goTo(controller, ore.x, ore.y, ore.z) then
             turtle.dig()
         else
-            print("Failed to move to " .. oreName .. " at (" .. ore.x .. ", " .. ore.y .. ", " .. ore.z .. ")")
+            print("Failed to move to " .. ore.x .. ", " .. ore.y .. ", " .. ore.z .. ")")
         end
 
     end
