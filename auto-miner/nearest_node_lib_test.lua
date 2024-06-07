@@ -1,6 +1,17 @@
 -- Include the nearest node library
+local scanner = peripheral.find("geoScanner")
 local NearestNodeLib = require 'nearest_node_lib'
-
+ 
+local ignoreSet
+local ignoreList = {"bedrock", "deepslate", "dirt", "grass_block", "stone", "tuff", "turtle_advanced"}
+ 
+function init()
+  ignoreSet = {}
+  for _,blockName in ipairs(ignoreList) do
+    ignoreSet[blockName] = true
+  end
+end
+ 
 -- Define a list of test nodes (30 blocks across 8 clusters)
 local testNodes = {
     {x=4, y=2, z=3}, {x=4, y=3, z=3}, {x=5, y=2, z=3},  -- Cluster 1
@@ -15,11 +26,33 @@ local testNodes = {
     {x=40, y=40, z=40}, {x=40, y=41, z=40}, {x=41, y=40, z=40}, {x=41, y=41, z=40},  -- More nodes
     {x=-30, y=-30, z=-30}, {x=-30, y=-31, z=-30}, {x=-31, y=-30, z=-30}  -- More nodes
 }
-
--- Test sequential distance calculation
-local sequentialDistance = NearestNodeLib.sequentialDistance(testNodes)
-print("Total Sequential Distance: " .. sequentialStraightDistance)
-
--- Test optimized distance calculation
-local _, optimizedDistance = NearestNodeLib.sortAndCalculateDistance(testNodes)
-print("Total Optimized Distance: " .. optimizedDistance)
+ 
+ 
+init()
+ 
+function main()
+    init()
+    local scanResults = scanner.scan(7)
+    if not scanResults then
+        print("Scan failed or returned no results.")
+    end
+    
+    local filteredBlocks = {}
+    for _, block in ipairs(scanResults) do
+        local blockName = block.name:match("([^:]+)$")
+        if not ignoreSet[blockName] then
+            table.insert(filteredBlocks, {x = block.x, y = block.y, z = block.z})   
+        end
+    end  
+    
+    print(filteredBlocks[1].x)
+      
+    local sequentialDistance = NearestNodeLib.sequentialDistance(filteredBlocks)
+    print("Total Sequential Distance: " .. sequentialDistance)
+    
+ 
+    local _, optimizedDistance = NearestNodeLib.sortAndCalculateDistance(filteredBlocks)                                        
+    print("Total Optimized Distance: " .. optimizedDistance)
+end
+ 
+main()
