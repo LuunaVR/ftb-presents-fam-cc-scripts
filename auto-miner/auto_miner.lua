@@ -1,4 +1,4 @@
-local TurtleController = require("TurtleController")
+local TurtleController = require("turtle_controller")
 
 local scanRadius = 8
 local ignoreOres = {
