@@ -14,7 +14,8 @@ local blockColors = {
     gold_ore = {color = colors.orange, label = "G"},
     coal_ore = {color = colors.black, label = "C"},
     redstone_ore = {color = colors.red, label = "R"},
-    lapis_ore = {color = colors.blue, label = "L"}
+    lapis_ore = {color = colors.blue, label = "L"},
+    ancient_debris = {color = colors.red, label = "R"}
  
 }
  
