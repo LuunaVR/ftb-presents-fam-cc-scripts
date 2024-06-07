@@ -59,25 +59,35 @@ end
 
 function main()
     initializeScanner()
-    mineOres()
-
+    local depth = 0
     local reachedBottom = false
+
     while not reachedBottom do
-        mineOres()
-        for i=1, scanRadius + scanRadius do
-            if not turtle.digDown() then
+        mineOres()  -- Mine initially before attempting to move down
+
+        for i = 1, scanRadius * 2 do  -- Attempt to move down defaultRadius * 2 times
+            if turtle.digDown() then
+                turtle.down()
+                depth = depth + 1
+            else
                 reachedBottom = true
+                print("Possible bedrock encountered or cannot move down further.")
                 break
             end
-            turtle.down()
-            depth = depth + 1
+        end
+
+        if reachedBottom then
+            mineOres()  -- Perform last mining operation at the bottom
+            print("Performing final mining operation before returning to top.")
+            break
         end
     end
 
-    controller.returnToStart(controller)
-    for i=1, depth do
+    -- Return to the surface
+    for y = 1, depth do
         turtle.up()
     end
+    print("Returned to the starting position.")
 end
 
 main()
