@@ -1,4 +1,5 @@
 local TurtleController = require("turtle_controller")
+local NearestNodeLib = require ("nearest_node_lib")
 
 local scanRadius = 8
 local ignoreOres = {
@@ -22,9 +23,19 @@ local function isIgnored(oreName)
 end
 
 local function mineOres()
-    local ores = scanner.scan(scanRadius)
-  
-    for _, ore in ipairs(ores) do
+    local scanResults = scanner.scan(scanRadius)
+
+    local filteredScanResults = {}
+    for _, block in ipairs(scanResults) do
+        local blockName = block.name:match("([^:]+)$")
+        if not ignoreSet[blockName] then
+            table.insert(filteredScanResults, {x = block.x, y = block.y, z = block.z})
+        end
+    end
+
+    local path, distance = NearestNodeLib.sortAndCalculateDistance(filteredBlocks)
+    
+    for _, ore in ipairs(path) do
         local oreName = ore.name:match("([^:]+)$") -- Extract the name after the colon
         if not isIgnored(oreName) then
             print("Mining " .. oreName .. " at (" .. ore.x .. ", " .. ore.y .. ", " .. ore.z .. ")")
