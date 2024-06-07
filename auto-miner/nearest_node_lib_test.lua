@@ -1,4 +1,3 @@
--- Include the nearest node library
 local scanner = peripheral.find("geoScanner")
 local NearestNodeLib = require 'nearest_node_lib'
  
@@ -11,7 +10,20 @@ function init()
     ignoreSet[blockName] = true
   end
 end
- 
+
+function printTable(tbl, indent)
+    if not indent then indent = 0 end
+    for k, v in pairs(tbl) do
+        local formatting = string.rep("  ", indent) .. k .. ":"
+        if type(v) == "table" then
+            print(formatting)
+            printTable(v, indent+1)
+        else
+            print(formatting .. tostring(v))
+        end
+    end
+end
+
 function main()
     init()
     local scanResults = scanner.scan(7)
@@ -25,14 +37,18 @@ function main()
         if not ignoreSet[blockName] then
             table.insert(filteredBlocks, {x = block.x, y = block.y, z = block.z})   
         end
-    end
+    end  
+    
+    print(filteredBlocks[1].x)
       
     local sequentialDistance = NearestNodeLib.sequentialDistance(filteredBlocks)
     print("Total Sequential Distance: " .. sequentialDistance)
     
  
-    local _, optimizedDistance = NearestNodeLib.sortAndCalculateDistance(filteredBlocks)                                        
+    local path, optimizedDistance = NearestNodeLib.sortAndCalculateDistance(filteredBlocks)                                        
     print("Total Optimized Distance: " .. optimizedDistance)
+ 
+    printTable(path)    
 end
  
 main()
