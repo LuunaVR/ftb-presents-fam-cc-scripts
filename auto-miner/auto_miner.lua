@@ -78,8 +78,9 @@ function main()
     for i=1, depth do
         turtle.up()
     end
-
 end
+
+main()
 
 
 -- Run the mining operation continuously
