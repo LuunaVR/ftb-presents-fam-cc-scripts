@@ -1,6 +1,7 @@
 local TurtleController = require("turtle_controller")
 local NearestNodeLib = require ("nearest_node_lib")
 
+local ignoreSet;
 local scanRadius = 8
 local ignoreOres = {
     "bedrock", "deepslate", "dirt", "grass_block", "stone", "tuff", "turtle_advanced"
@@ -9,8 +10,22 @@ local ignoreOres = {
 local controller = TurtleController.new()
 local scanner = peripheral.find("geoScanner")
 
-if not scanner then
-    error("No geo scanner found. Please attach a geo scanner.")
+function initializeScanner()
+    term.setCursorPos(1, 1)
+    print(string.rep(" ", term.getSize()))  -- Clear the line where cursor is positioned
+ 
+    scanner = peripheral.find("geoScanner")
+    if not scanner then
+        print("No geo scanner found. Please attach a geo scanner.")
+        return false
+    end
+ 
+    ignoreSet = {}
+    for _, blockName in ipairs(ignoreList) do
+        ignoreSet[blockName] = true
+    end
+ 
+    return true
 end
 
 local function isIgnored(oreName)
@@ -51,6 +66,7 @@ local function mineOres()
     controller.returnToStart(controller)
 end
 
+initializeScanner()
 mineOres()
 -- Run the mining operation continuously
 --while true do
