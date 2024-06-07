@@ -39,7 +39,7 @@ local function mineOres()
         end
     end
 
-    local path, distance = NearestNodeLib.sortAndCalculateDistance(filteredBlocks)
+    local path, distance = NearestNodeLib.sortAndCalculateDistance(filteredScanResults)
     
     for _, ore in ipairs(path) do
         local oreName = ore.name:match("([^:]+)$") -- Extract the name after the colon
