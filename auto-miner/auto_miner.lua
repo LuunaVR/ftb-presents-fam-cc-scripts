@@ -46,6 +46,7 @@ function mineOres()
   turtle.select(1)
 
   for _, ore in ipairs(path) do
+    depositIfInsuffientSpace()
     print("Mining at (" .. ore.x .. ", " .. ore.y .. ", " .. ore.z .. ")")
     if not controller.goTo(controller, ore.x, ore.y, ore.z) then
       -- TODO: can this even happen?
