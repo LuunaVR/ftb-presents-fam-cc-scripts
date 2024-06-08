@@ -4,6 +4,7 @@ local NearestNodeLib = require ("nearest_node_lib")
 local ignoreSet, depth;
 local scanRadius = 8
 local minimumSpaceAfterCleanup = 2
+local inventorySide = "north"
 local ignoreBlocks = {
   "bedrock", "cobbled_deepslate", "deepslate", "dirt", "grass_block", "stone", "tuff", "turtle_advanced"
 }
@@ -95,6 +96,7 @@ if not hasEnoughSpace() then
 
     -- me done forgot the method for rotation by direction lul
     -- rotate to inventory side (make it a config)
+    controller.update_direction(controller, inventorySide)
 
     -- deposit all inv
     for slot = 1, 16 do
