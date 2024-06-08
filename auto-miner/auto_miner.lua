@@ -111,7 +111,7 @@ function main()
   local depth = 0
   local reachedBottom = false
 
-  for i = 1, scanRadius do
+  for i = 1, scanRadius + 1 do
     if turtle.digDown() then
       turtle.down()
       depth = depth + 1
@@ -125,7 +125,7 @@ function main()
   while not reachedBottom do
     mineOres()  -- Mine initially before attempting to move down
 
-    for i = 1, scanRadius * 2 do  -- Attempt to move down defaultRadius * 2 times
+    for i = 1, (scanRadius * 2) + 1 do  -- Attempt to move down defaultRadius * 2 times
       turtle.digDown()
       if turtle.down() then
         depth = depth + 1
