@@ -88,6 +88,10 @@ function foundChestInFront()
 end
 
 function depositItems()
+  if not foundChestInFront() then
+    return false
+  end
+
   for slot = 1, 16 do
     if turtle.getItemCount(slot) > 0 then
       turtle.select(slot)
@@ -96,22 +100,21 @@ function depositItems()
       end
     end
   end
+
   return true
 end
 
 function handleDeposit()
-  if isChest() then
-    if not depositItems() then
-      local attempts = 0
-      while attempts < 3 do -- rotate up to 3 times
-        turtle.turnRight()
-        attempts = attempts + 1
-        if depositItems() then
-          return
-        end
+  if not depositItems() then
+    local attempts = 0
+    while attempts < 3 do -- rotate up to 3 times
+      turtle.turnRight()
+      attempts = attempts + 1
+      if depositItems() then
+        return
       end
-      error("Failed to deposit items after rotating 3 times.")
     end
+    error("Failed to deposit items after rotating 3 times.")
   end
 end
 
