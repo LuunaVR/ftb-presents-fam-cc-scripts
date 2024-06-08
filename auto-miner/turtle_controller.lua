@@ -49,6 +49,86 @@ local function updateCoordinates(controller, movement)
     end
 end
 
+function TurtleController.rotateToDirection(controller, newDirection)
+    local rotations = {
+        north = { north = 0, east = -1, south = 2, west = 1 },
+        east = { north = 1, east = 0, south = -1, west = 2 },
+        south = { north = 2, east = 1, south = 0, west = -1 },
+        west = { north = -1, east = 2, south = 1, west = 0 }
+    }
+
+    local rotationSteps = rotations[controller.direction][newDirection]
+    if rotationSteps > 0 then
+        for _ = 1, rotationSteps do
+            TurtleController.move(controller, "right")
+        end
+    elseif rotationSteps < 0 then
+        for _ = 1, -rotationSteps do
+            TurtleController.move(controller, "left")
+        end
+    end
+end
+
+-- Move the turtle forward, up, down, or turn left/right
+function TurtleController.move(controller, movement)
+    if movement == "forward" then
+        while turtle.detect() do
+            turtle.dig()
+        end
+        if turtle.forward() then
+            updateCoordinates(controller, "forward")
+            return true
+        end
+    elseif movement == "up" then
+        while turtle.detectUp() do
+            turtle.digUp()
+        end
+        if turtle.up() then
+            controller.y = controller.y + 1
+            return true
+        end
+    elseif movement == "down" then
+        while turtle.detectDown() do
+            turtle.digDown()
+        end
+        if turtle.down() then
+            controller.y = controller.y - 1
+            return true
+        end
+    elseif movement == "left" then
+        if turtle.turnLeft() then
+            updateDirection(controller, "left")
+            return true
+        end
+    elseif movement == "right" then
+        if turtle.turnRight() then
+            updateDirection(controller, "right")
+            return true
+        end
+    end
+    return false
+end
+
+-- Rotate the turtle to face a specific cardinal direction
+local rotations = {
+    north = { north = 0, east = -1, south = 2, west = 1 },
+    east = { north = 1, east = 0, south = -1, west = 2 },
+    south = { north = 2, east = 1, south = 0, west = -1 },
+    west = { north = -1, east = 2, south = 1, west = 0 }
+}
+function TurtleController.rotateToDirection(controller, newDirection)
+  local rotationSteps = rotations[controller.direction][newDirection]
+  if rotationSteps > 0 then
+    for _ = 1, rotationSteps do
+      TurtleController.move(controller, "right")
+    end
+  elseif rotationSteps < 0 then
+    for _ = 1, -rotationSteps do
+      TurtleController.move(controller, "left")
+    end
+  end
+end
+
 -- Move the turtle forward, up, down, or turn left/right
 function TurtleController.move(controller, movement)
     if movement == "forward" then
