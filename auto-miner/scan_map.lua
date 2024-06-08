@@ -21,7 +21,7 @@ local blockColors = {
  
 -- Initialize global variables
 local scanner, ignoreSet, filterSet
-local ignoreList = {"bedrock", "deepslate", "dirt", "grass_block", "stone", "tuff", "turtle_advanced"}
+local ignoreList = {"bedrock", "deepslate", "cobbled_deepslate", "dirt", "grass_block", "stone", "tuff", "turtle_advanced"}
 local filterList = {"diamond_ore", "iron_ore", "gold_ore", "coal_ore"}
  
 function initializeScanner()
@@ -64,9 +64,9 @@ function displayMapBackground(blocksForMap)
  
     -- Apply blocks' offsets to the map
     for _, block in pairs(blocksForMap) do
-        local posx = center + block.x
-        local posz = center + block.z
-        if posx >= 1 and posx <= size and posz >= 1 and posz <= size then
+        local posX = center + block.x
+        local posZ = center + block.z
+        if posX >= 1 and posX <= size and posZ >= 1 and posZ <= size then
             term.setCursorPos(posx, posz)
             local found = false
             for key, value in pairs(blockColors) do
@@ -79,7 +79,7 @@ function displayMapBackground(blocksForMap)
             end
             if showUnknown and not found then
                 term.setBackgroundColor(backgroundColor)
-                write("?")  -- Placeholder if block name is not found in hashmap
+                write("?") 
             end
         end
     end
@@ -96,7 +96,7 @@ function main()
  
     -- Collecting blocks' relative positions
     for _, block in ipairs(scanResults) do
-        local blockName = block.name:match("([^:]+)$")
+        local blockName = block.name:match("([^:]+)$")  -- Removes mod name from block name
         if not ignoreSet[blockName] then
             table.insert(blocksForMap, {name = blockName, x = block.x, z = block.z})
         end
