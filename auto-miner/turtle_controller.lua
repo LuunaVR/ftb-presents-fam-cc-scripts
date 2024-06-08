@@ -15,7 +15,7 @@ function TurtleController.new()
 end
 
 -- Update the direction the turtle is facing
-local function update_direction(controller, turn)
+local function updateDirection(controller, turn)
     local directions = {"north", "east", "south", "west"}
     local idx = 1
     for i, dir in ipairs(directions) do
@@ -35,7 +35,7 @@ local function update_direction(controller, turn)
 end
 
 -- Update the coordinates based on the movement direction
-local function update_coordinates(controller, movement)
+local function updateCoordinates(controller, movement)
     if movement == "forward" then
         if controller.direction == "north" then
             controller.z = controller.z - 1
@@ -56,7 +56,7 @@ function TurtleController.move(controller, movement)
             turtle.dig()
         end
         if turtle.forward() then
-            update_coordinates(controller, "forward")
+            updateCoordinates(controller, "forward")
             return true
         end
     elseif movement == "up" then
@@ -77,12 +77,12 @@ function TurtleController.move(controller, movement)
         end
     elseif movement == "left" then
         if turtle.turnLeft() then
-            update_direction(controller, "left")
+            updateDirection(controller, "left")
             return true
         end
     elseif movement == "right" then
         if turtle.turnRight() then
-            update_direction(controller, "right")
+            updateDirection(controller, "right")
             return true
         end
     end
