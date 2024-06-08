@@ -3,7 +3,6 @@ local NearestNodeLib = require ("nearest_node_lib")
 
 local ignoreSet, depth;
 local scanRadius = 8
-local inventoryDirection = "north"
 local minimumSpaceAfterCleanup = 2
 local ignoreBlocks = {
   "bedrock", "cobblestone", "cobbled_deepslate", "deepslate", "dirt", "grass_block", "stone", "tuff", "turtle_advanced"
@@ -83,11 +82,50 @@ function cleanupInventory()
   turtle.select(1)
 end
 
+function foundChestInFront()
+  local success, data = turtle.inspect()
+  return success and string.find(data.name, "chest")
+end
+
+function depositItems()
+  for slot = 1, 16 do
+    if turtle.getItemCount(slot) > 0 then
+      turtle.select(slot)
+      if not turtle.drop() then
+        return false
+      end
+    end
+  end
+  return true
+end
+
+function handleDeposit()
+  if isChest() then
+    if not depositItems() then
+      local attempts = 0
+      while attempts < 3 do -- rotate up to 3 times
+        turtle.turnRight()
+        attempts = attempts + 1
+        if depositItems() then
+          return
+        end
+      end
+      error("Failed to deposit items after rotating 3 times.")
+    end
+  end
+end
+
 function depositIfInsuffientSpace()
   if not hasEnoughSpace() then
     controller.returnToStart(controller)
     for i = 1, depth do
       turtle.up()
+    end
+
+    controller.rotateToDirection(controller, "north")
+    local success, data = turtle.inspect()
+    if success and data.name and string.find(data.name, "chest") then
+      
     end
     
     if not (inventoryDirection == "up") then
