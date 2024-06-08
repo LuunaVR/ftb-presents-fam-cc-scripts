@@ -3,6 +3,7 @@ local NearestNodeLib = require ("nearest_node_lib")
 
 local ignoreSet, depth;
 local scanRadius = 8
+local minimumSpaceAfterCleanup = 2
 local ignoreBlocks = {
   "bedrock", "cobbled_deepslate", "deepslate", "dirt", "grass_block", "stone", "tuff", "turtle_advanced"
 }
@@ -47,6 +48,12 @@ function mineOres()
   turtle.select(1)
 
   for _, ore in ipairs(path) do
+
+    if inventoryFull() then
+      -- TODO: go store inventory
+      print("i AINT gOtS No SP@ce")
+    end
+    
     print("Mining at (" .. ore.x .. ", " .. ore.y .. ", " .. ore.z .. ")")
     if controller.goTo(controller, ore.x, ore.y, ore.z) then
       turtle.dig()
@@ -80,14 +87,13 @@ function cleanupInventory()
     end
   end
 
-  for i = writeIndex, 16 do
-    turtle.select(i)
-    turtle.dropAll()
-  end
-
   turtle.select(1)
+end
 
-  return turtle.getItemCount(15) == 0
+function inventoryFull()
+  cleanupInventory()
+
+  return turtle.getItemCount(16 - minimumSpaceAfterCleanup) == 0
 end
 
 function main()
@@ -125,6 +131,7 @@ end
 
 initializeScanner()
 mineOres()
+
 
 
 -- Run the mining operation continuously
