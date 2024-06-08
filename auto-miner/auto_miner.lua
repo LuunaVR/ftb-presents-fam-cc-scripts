@@ -63,10 +63,9 @@ end
 function cleanupInventory()
   for i = 1, 16 do
     local itemDetail = turtle.getItemDetail(i)
-      if itemDetail and ignoreSet[itemDetail.name:match("([^:]+)$")] then
-        turtle.select(i)
-        turtle.drop()
-      end
+    if itemDetail and ignoreSet[itemDetail.name:match("([^:]+)$")] then
+      turtle.select(i)
+      turtle.drop()
     end
   end
 
