@@ -46,7 +46,7 @@ function main()
     local path, optimizedDistance = NearestNodeLib.sortAndCalculateDistance(filteredBlocks)                                        
     print("Total Optimized Distance: " .. optimizedDistance)
 
-    for block, v in pairs(path) do
+    for _, block in pairs(path) do
         print("x:" .. block.x ..", y:" .. block.y ..", z:" .. block.z) 
     end
     --printTable(path)
