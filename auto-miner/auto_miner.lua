@@ -64,7 +64,7 @@ function cleanupInventory()
     local itemDetail = turtle.getItemDetail(i)
     if itemDetail and ignoreSet[itemDetail.name:match("([^:]+)$")] then
       turtle.select(i)
-      turtle.drop()
+      turtle.dropDown()
     end
   end
 
@@ -121,28 +121,13 @@ end
 function depositIfInsuffientSpace()
   if not hasEnoughSpace() then
     controller.returnToStart(controller)
+    cleanupInventory()
     for i = 1, depth do
       turtle.up()
     end
 
     controller.rotateToDirection(controller, "north")
-    local success, data = turtle.inspect()
-    if success and data.name and string.find(data.name, "chest") then
-      
-    end
-    
-    if not (inventoryDirection == "up") then
-      controller.rotateToDirection(controller, inventoryDirection)
-    end
-    
-    for slot = 1, 16 do
-      turtle.select(slot)
-      if inventoryDirection == "up" then
-        turtle.dropUp()
-      else
-        turtle.drop()
-      end
-    end
+    handleDeposit()
 
     for i = 1, depth do
       turtle.down()
