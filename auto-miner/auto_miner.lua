@@ -80,7 +80,7 @@ function cleanupInventory()
   for readIndex = 1, 16 do
     if turtle.getItemDetail(readIndex) then
       if readIndex ~= writeIndex then
-        turtle.select(readStatus)
+        turtle.select(readIndex)
         turtle.transferTo(writeIndex)
       end
       writeIndex = writeIndex + 1
