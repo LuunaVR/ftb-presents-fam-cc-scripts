@@ -111,6 +111,17 @@ function main()
   local depth = 0
   local reachedBottom = false
 
+  for i = 1, scanRadius do
+    if turtle.digDown() then
+      turtle.down()
+      depth = depth + 1
+    else
+      reachedBottom = true
+      print("Possible bedrock encountered or cannot move down further.")
+      break
+    end
+  end
+  
   while not reachedBottom do
     mineOres()  -- Mine initially before attempting to move down
 
@@ -139,8 +150,7 @@ function main()
   print("Returned to the starting position.")
 end
 
-initializeScanner()
-mineOres()
+main()
 
 
 
