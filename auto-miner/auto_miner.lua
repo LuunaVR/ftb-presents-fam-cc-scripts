@@ -49,15 +49,11 @@ function mineOres()
 
   for _, ore in ipairs(path) do
 
-    if inventoryFull() then
-      -- TODO: go store inventory
-      print("i AINT gOtS No SP@ce")
-    end
+    
     
     print("Mining at (" .. ore.x .. ", " .. ore.y .. ", " .. ore.z .. ")")
-    if controller.goTo(controller, ore.x, ore.y, ore.z) then
-      turtle.dig()
-    else
+    if not controller.goTo(controller, ore.x, ore.y, ore.z) then
+      -- TODO: can this even happen?
       print("Failed to move to " .. ore.x .. ", " .. ore.y .. ", " .. ore.z .. ")")
     end
 
@@ -90,10 +86,33 @@ function cleanupInventory()
   turtle.select(1)
 end
 
-function inventoryFull()
+function depositIfInsuffientSpace()
+if not hasEnoughSpace() then
+    controller.returnToStart(controller)
+    for i = 1, depth do
+      turtle.up()
+    end
+
+    -- me done forgot the method for rotation by direction lul
+    -- rotate to inventory side (make it a config)
+
+    -- deposit all inv
+    for slot = 1, 16 do
+      turtle.select(slot)
+      turtle.drop()
+    end
+      
+
+    for i = 1, depth do
+      turtle.down()
+    end 
+  end
+end
+
+function hasEnoughSpace()
   cleanupInventory()
 
-  return turtle.getItemCount(16 - minimumSpaceAfterCleanup) > 0
+  return turtle.getItemCount(16 - minimumSpaceAfterCleanup) == 0
 end
 
 function main()
