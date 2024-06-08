@@ -6,7 +6,7 @@ local scanRadius = 8
 local inventoryDirection = "north"
 local minimumSpaceAfterCleanup = 2
 local ignoreBlocks = {
-  "bedrock", "cobbled_deepslate", "deepslate", "dirt", "grass_block", "stone", "tuff", "turtle_advanced"
+  "bedrock", "cobblestone", "cobbled_deepslate", "deepslate", "dirt", "grass_block", "stone", "tuff", "turtle_advanced"
 }
 
 local controller = TurtleController.new()
@@ -63,9 +63,10 @@ end
 function cleanupInventory()
   for i = 1, 16 do
     local itemDetail = turtle.getItemDetail(i)
-    if itemDetail and ignoreSet[itemDetail.name:match("([^:]+)$")] then
-      turtle.select(i)
-      turtle.drop()
+      if itemDetail and ignoreSet[itemDetail.name:match("([^:]+)$")] then
+        turtle.select(i)
+        turtle.drop()
+      end
     end
   end
 
@@ -112,7 +113,7 @@ end
 function hasEnoughSpace()
   cleanupInventory()
 
-  return turtle.getItemCount(16 - minimumSpaceAfterCleanup) == 0
+  return turtle.getItemCount(16 - minimumSpaceAfterCleanup + 1) == 0
 end
 
 function main()
