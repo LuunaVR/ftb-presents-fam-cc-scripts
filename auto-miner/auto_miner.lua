@@ -34,6 +34,7 @@ function mineOres()
   local scanResults = scanner.scan(scanRadius)
 
   local filteredScanResults = {}
+  table.insert(filteredScanResults, {x = 0, y = 0, z = 0}) -- Make turtle location the first node
   for _, block in ipairs(scanResults) do
     local blockName = block.name:match("([^:]+)$")
     if not ignoreSet[blockName] then
