@@ -121,7 +121,7 @@ function main()
 end
 
 initializeScanner()
-main()
+mineOres()
 
 
 -- Run the mining operation continuously
