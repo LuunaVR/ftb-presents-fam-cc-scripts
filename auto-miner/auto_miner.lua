@@ -3,6 +3,7 @@ local NearestNodeLib = require ("nearest_node_lib")
 
 local ignoreSet, depth;
 local scanRadius = 8
+local inventoryDirection = "north"
 local minimumSpaceAfterCleanup = 2
 local ignoreBlocks = {
   "bedrock", "cobbled_deepslate", "deepslate", "dirt", "grass_block", "stone", "tuff", "turtle_advanced"
@@ -83,16 +84,23 @@ function cleanupInventory()
 end
 
 function depositIfInsuffientSpace()
-if not hasEnoughSpace() then
+  if not hasEnoughSpace() then
     controller.returnToStart(controller)
     for i = 1, depth do
       turtle.up()
     end
     
-    -- deposit all inv
+    if not (inventoryDirection == "up") then
+      controller.updateDirection(controller, inventoryDirection)
+    end
+    
     for slot = 1, 16 do
       turtle.select(slot)
-      turtle.dropUp()
+      if inventoryDirection == "up" then
+        turtle.dropUp()
+      else
+        turtle.drop()
+      end
     end
 
     for i = 1, depth do
@@ -109,7 +117,7 @@ end
 
 function main()
   initializeScanner()
-  local depth = 0
+  depth = 0
   local reachedBottom = false
 
   for i = 1, scanRadius + 1 do
