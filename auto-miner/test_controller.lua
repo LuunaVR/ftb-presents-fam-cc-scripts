@@ -1,4 +1,4 @@
-local TurtleControllerLib = require("TurtleController")
+local TurtleControllerLib = require("turtle_controller")
 local turtleController = TurtleControllerLib.new()
 
 print("Moving turtle to a specific coordinate...")
