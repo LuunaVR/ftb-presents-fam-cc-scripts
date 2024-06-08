@@ -67,7 +67,7 @@ function displayMapBackground(blocksForMap)
         local posX = center + block.x
         local posZ = center + block.z
         if posX >= 1 and posX <= size and posZ >= 1 and posZ <= size then
-            term.setCursorPos(posx, posz)
+            term.setCursorPos(posX, posZ)
             local found = false
             for key, value in pairs(blockColors) do
                 if string.find(block.name, key) then
