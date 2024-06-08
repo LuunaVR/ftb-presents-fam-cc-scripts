@@ -93,7 +93,7 @@ end
 function inventoryFull()
   cleanupInventory()
 
-  return turtle.getItemCount(16 - minimumSpaceAfterCleanup) == 0
+  return turtle.getItemCount(16 - minimumSpaceAfterCleanup) > 0
 end
 
 function main()
