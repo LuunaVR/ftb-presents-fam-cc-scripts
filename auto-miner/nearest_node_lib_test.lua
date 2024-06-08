@@ -32,6 +32,7 @@ function main()
     end
     
     local filteredBlocks = {}
+    table.insert(filteredBlocks, {x = 0, y = 0, z = 0}) 
     for _, block in ipairs(scanResults) do
         local blockName = block.name:match("([^:]+)$")
         if not ignoreSet[blockName] then
