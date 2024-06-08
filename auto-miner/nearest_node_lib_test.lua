@@ -1,9 +1,10 @@
 local scanner = peripheral.find("geoScanner")
 local NearestNodeLib = require 'nearest_node_lib'
- 
+
 local ignoreSet
 local ignoreList = {"bedrock", "cobbled_deepslate", "deepslate", "dirt", "grass_block", "stone", "tuff", "turtle_advanced"}
- 
+local range = 8
+
 function init()
   ignoreSet = {}
   for _,blockName in ipairs(ignoreList) do
@@ -26,7 +27,7 @@ end
 
 function main()
     init()
-    local scanResults = scanner.scan(7)
+    local scanResults = scanner.scan(range)
     if not scanResults then
         print("Scan failed or returned no results.")
     end
