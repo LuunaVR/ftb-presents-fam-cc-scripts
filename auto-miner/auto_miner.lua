@@ -153,6 +153,7 @@ function main()
   end
 
   -- Return to the surface
+  cleanupInventory()
   for y = 1, depth do
     turtle.up()
   end
