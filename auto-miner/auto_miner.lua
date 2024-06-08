@@ -126,8 +126,8 @@ function main()
     mineOres()  -- Mine initially before attempting to move down
 
     for i = 1, scanRadius * 2 do  -- Attempt to move down defaultRadius * 2 times
-      if turtle.digDown() then
-        turtle.down()
+      turtle.digDown()
+      if turtle.down() then
         depth = depth + 1
       else
         reachedBottom = true
