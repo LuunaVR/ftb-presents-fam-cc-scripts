@@ -60,7 +60,7 @@ end
 function cleanupInventory()
   for i = 1, 16 do
     local itemDetail = turtle.getItemDetail(i)
-    if itemDetail and ignoreSet[itemDetail.name] then
+    if itemDetail and ignoreSet[itemDetail.name:match("([^:]+)$")] then
       turtle.select(i)
       turtle.drop()
     end
@@ -120,6 +120,7 @@ function main()
   print("Returned to the starting position.")
 end
 
+initializeScanner()
 main()
 
 
