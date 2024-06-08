@@ -4,7 +4,6 @@ local NearestNodeLib = require ("nearest_node_lib")
 local ignoreSet, depth;
 local scanRadius = 8
 local minimumSpaceAfterCleanup = 2
-local inventorySide = "north"
 local ignoreBlocks = {
   "bedrock", "cobbled_deepslate", "deepslate", "dirt", "grass_block", "stone", "tuff", "turtle_advanced"
 }
@@ -15,9 +14,7 @@ local scanner = peripheral.find("geoScanner")
 function initializeScanner()
   term.setCursorPos(1, 1)
   print(string.rep(" ", term.getSize()))  -- Clear the line where cursor is positioned
-
   depth = 0;
-  
   scanner = peripheral.find("geoScanner")
   if not scanner then
     print("No geo scanner found. Please attach a geo scanner.")
@@ -49,9 +46,6 @@ function mineOres()
   turtle.select(1)
 
   for _, ore in ipairs(path) do
-
-    
-    
     print("Mining at (" .. ore.x .. ", " .. ore.y .. ", " .. ore.z .. ")")
     if not controller.goTo(controller, ore.x, ore.y, ore.z) then
       -- TODO: can this even happen?
@@ -93,17 +87,12 @@ if not hasEnoughSpace() then
     for i = 1, depth do
       turtle.up()
     end
-
-    -- me done forgot the method for rotation by direction lul
-    -- rotate to inventory side (make it a config)
-    controller.update_direction(controller, inventorySide)
-
+    
     -- deposit all inv
     for slot = 1, 16 do
       turtle.select(slot)
-      turtle.drop()
+      turtle.dropUp()
     end
-      
 
     for i = 1, depth do
       turtle.down()
