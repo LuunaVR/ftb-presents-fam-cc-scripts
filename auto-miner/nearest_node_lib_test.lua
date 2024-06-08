@@ -39,7 +39,9 @@ function main()
             table.insert(filteredBlocks, {x = block.x, y = block.y, z = block.z})   
         end
     end
-      
+
+    print("Number of Locations: " .. #filteredBlocks)
+ 
     local sequentialDistance = NearestNodeLib.sequentialDistance(filteredBlocks)
     print("Total Sequential Distance: " .. sequentialDistance)
     
@@ -47,6 +49,8 @@ function main()
     local path, optimizedDistance = NearestNodeLib.sortAndCalculateDistance(filteredBlocks)                                        
     print("Total Optimized Distance: " .. optimizedDistance)
 
+    read()
+ 
     for _, block in pairs(path) do
         print("x:" .. block.x ..", y:" .. block.y ..", z:" .. block.z) 
     end
