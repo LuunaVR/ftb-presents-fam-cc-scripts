@@ -183,7 +183,7 @@ function main()
   for y = 1, depth do
     turtle.up()
   end
-  print("Returned to the starting position.")
+  handleDeposit()
 end
 
 main()
