@@ -112,8 +112,8 @@ function main()
   local reachedBottom = false
 
   for i = 1, scanRadius + 1 do
-    if turtle.digDown() then
-      turtle.down()
+    turtle.digDown()
+    if turtle.down() then
       depth = depth + 1
     else
       reachedBottom = true
