@@ -35,11 +35,9 @@ function main()
     for _, block in ipairs(scanResults) do
         local blockName = block.name:match("([^:]+)$")
         if not ignoreSet[blockName] then
-            table.insert(filteredBlocks, {x = block.x, y = block.y, z = block.z})   
+            table.insert(filteredBlocks, "x" .. block.x .. ", y" .. block.x .. ",z" .. block.z)   
         end
-    end  
-    
-    print(filteredBlocks[1].x)
+    end
       
     local sequentialDistance = NearestNodeLib.sequentialDistance(filteredBlocks)
     print("Total Sequential Distance: " .. sequentialDistance)
