@@ -37,7 +37,7 @@ function mineOres()
   for _, block in ipairs(scanResults) do
     local blockName = block.name:match("([^:]+)$")
     if not ignoreBlocks[blockName] then
-      table.insert(filteredScanDetails, {x = block.x, y = block.y, z = block.z})
+      table.insert(filteredScanResults, {x = block.x, y = block.y, z = block.z})
     end
   end
 
