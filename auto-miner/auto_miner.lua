@@ -42,7 +42,9 @@ function mineOres()
   end
 
   local path, distance = NearestNodeLib.sortAndCalculateDistance(filteredScanResults)
-  
+
+  turtle.select(1)
+
   for _, ore in ipairs(path) do
     print("Mining at (" .. ore.x .. ", " .. ore.y .. ", " .. ore.z .. ")")
     if controller.goTo(controller, ore.x, ore.y, ore.z) then
