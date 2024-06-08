@@ -91,7 +91,7 @@ function depositIfInsuffientSpace()
     end
     
     if not (inventoryDirection == "up") then
-      controller.updateDirection(controller, inventoryDirection)
+      controller.rotateToDirection(controller, inventoryDirection)
     end
     
     for slot = 1, 16 do
