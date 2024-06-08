@@ -2,7 +2,7 @@ local scanner = peripheral.find("geoScanner")
 local NearestNodeLib = require 'nearest_node_lib'
  
 local ignoreSet
-local ignoreList = {"bedrock", "deepslate", "dirt", "grass_block", "stone", "tuff", "turtle_advanced"}
+local ignoreList = {"bedrock", "cobbled_deepslate", "deepslate", "dirt", "grass_block", "stone", "tuff", "turtle_advanced"}
  
 function init()
   ignoreSet = {}
