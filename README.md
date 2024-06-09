@@ -1,6 +1,6 @@
 # Luuna's Geo Scanner Scripts
 
-This repository contains scripts for an automated mining system and a handheld scan map display, both utilizing the Advanced Peripherals mod in Minecraft.
+This repository contains scripts for an automated mining system and a handheld scan map display in modded [Minecraft](https://www.minecraft.net/)
 
 ## Description
 
@@ -12,7 +12,7 @@ This repository contains scripts for an automated mining system and a handheld s
 
 - Minecraft with the [**Advanced Peripherals**](https://www.curseforge.com/minecraft/mc-mods/advanced-peripherals) mod.
 - A mining turtle equipped with a [**Geo Scanner**](https://docs.advanced-peripherals.de/peripherals/geo_scanner/).
-- A [**ComputerCraft**](https://www.computercraft.info/) portable computer for displaying the scan map.
+- A [**CC: Tweaked**]([https://www.curseforge.com/minecraft/mc-mods/computercraft](https://www.curseforge.com/minecraft/mc-mods/cc-tweaked)) portable computer for displaying the scan map.
 
 ## Features
 
