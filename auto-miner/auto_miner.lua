@@ -8,6 +8,11 @@ local ignoreBlocks = {
   "bedrock", "cobblestone", "cobbled_deepslate", "deepslate", "dirt", "grass_block", "stone", "tuff", "turtle_advanced"
 }
 
+local onlyAllowedBlocks = true
+local allowedBlocks = {
+  "ancient_debris"
+}
+
 local controller = TurtleController.new()
 local scanner = peripheral.find("geoScanner")
 
@@ -26,6 +31,11 @@ function initializeScanner()
     ignoreSet[blockName] = true
   end
 
+  allowedSet = {}
+  for _, blockName in ipairs(allowedBlocks) do
+    allowedSet[blockName] = true
+  end
+
   return true
 end
 
@@ -37,7 +47,9 @@ function mineOres()
   for _, block in ipairs(scanResults) do
     local blockName = block.name:match("([^:]+)$")
     if not ignoreSet[blockName] then
-      table.insert(filteredScanResults, {x = block.x, y = block.y, z = block.z})
+      if not onlyAllowedBlocks or allowedSet[blockName] then
+        table.insert(filteredScanResults, {x = block.x, y = block.y, z = block.z})
+      end 
     end
   end
 
