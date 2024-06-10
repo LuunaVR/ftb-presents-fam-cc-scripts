@@ -2,7 +2,7 @@ local TurtleController = require("turtle_controller")
 local NearestNodeLib = require ("nearest_node_lib")
 
 local ignoreSet, depth;
-local scanRadius = 8
+local scanRadius = 7
 local minimumSpaceAfterCleanup = 2
 local ignoreBlocks = {
   "bedrock", "cobblestone", "cobbled_deepslate", "deepslate", "dirt", "grass_block", "stone", "tuff", "turtle_advanced"
