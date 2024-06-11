@@ -8,7 +8,7 @@ local ignoreBlocks = {
   "bedrock", "cobblestone", "cobbled_deepslate", "deepslate", "dirt", "grass_block", "stone", "tuff", "turtle_advanced"
 }
 
-local onlyAllowedBlocks = true
+local onlyAllowedBlocks = false
 local allowedBlocks = {
   "ancient_debris"
 }
