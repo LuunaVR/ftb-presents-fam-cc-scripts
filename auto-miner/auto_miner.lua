@@ -199,11 +199,3 @@ function main()
 end
 
 main()
-
-
-
--- Run the mining operation continuously
---while true do
---    mineOres()
---    os.sleep(5) -- Sleep for 5 seconds before the next cycle
---end
