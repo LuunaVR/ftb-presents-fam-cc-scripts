@@ -13,3 +13,5 @@ end
 
 turtle.turnRight()
 turtle.place()
+
+shell.run("auto_miner")
