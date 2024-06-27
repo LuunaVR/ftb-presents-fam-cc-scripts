@@ -1,5 +1,9 @@
-print("Enter distance: ")
+print("Enter distance (default 16): ")
 local distance = read()
+
+if distance == "" then
+  distance = 16
+end
 
 turtle.dig()
 turtle.turnLeft()
