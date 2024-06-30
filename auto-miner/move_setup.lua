@@ -1,8 +1,24 @@
-print("Enter distance (default 16): ")
-local distance = read()
+local defaultDistance = 16
+local waitTime = 5
 
-if distance == "" then
-  distance = 16
+local timer = os.startTimer(waitTime)
+parallel.waitForAny(
+    function()
+        distance = read()
+    end,
+    function()
+        while true do
+            local event, id = os.pullEvent("timer")
+            if id == timer then break end
+        end
+    end
+)
+
+if not distance then
+    distance = defaultDistance
+    print("No input received, using default value: " .. tostring(defaultDistance))
+else
+    print("User input received: " .. tostring(distance))
 end
 
 turtle.dig()
