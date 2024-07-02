@@ -1,0 +1,41 @@
+local distance = 16
+local checkInterval = 1
+ 
+function moveBack()
+  log("Moving back " .. distance .. " blocks")
+  for i=1, distance do
+    if not turtle.back() then
+      error("Failed to move")
+    end
+  end
+end
+ 
+function getRuntime()
+  return math.floor(os.clock())
+end
+ 
+function log(message)
+  print(getRuntime() .. ": " .. message)
+end
+ 
+function waitForBlock()
+  log("Waiting for block in front...")
+  while true do
+    local blockFound, data = turtle.inspect()
+    if blockFound then
+      log("Block detected")
+      return true
+    end    
+    sleep(checkInterval)
+  end 
+end
+ 
+function main()
+  for i = 1, 100 do
+    waitForBlock()    
+    moveBack()
+    log("Moved to chunk #" .. i)
+  end
+end
+ 
+main()
