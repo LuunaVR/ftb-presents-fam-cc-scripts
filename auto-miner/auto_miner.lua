@@ -1,6 +1,7 @@
 local TurtleController = require("turtle_controller")
 local NearestNodeLib = require ("nearest_node_lib")
 
+local maxChunks = 1
 local ignoreSet, depth;
 local scanRadius = 7
 local minimumSpaceAfterCleanup = 2
@@ -198,4 +199,8 @@ function main()
   handleDeposit()
 end
 
-main()
+for currentChunk = 1, maxChunks do
+  main()
+  shell.run("move_setup")
+end
+
