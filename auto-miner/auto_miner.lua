@@ -1,7 +1,7 @@
 local TurtleController = require("turtle_controller")
 local NearestNodeLib = require ("nearest_node_lib")
 
-local maxChunks = 1
+local maxChunks = 4
 local ignoreSet, depth;
 local scanRadius = 7
 local minimumSpaceAfterCleanup = 2
