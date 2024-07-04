@@ -4,6 +4,7 @@ local NearestNodeLib = require ("nearest_node_lib")
 local maxChunks = 100
 local ignoreSet, depth;
 local scanRadius = 7
+local minimumFuel = 10000
 local minimumSpaceAfterCleanup = 2
 local ignoreBlocks = {
   "bedrock", "cobblestone", "cobbled_deepslate", "deepslate", "dirt", "grass_block", "stone", "tuff", "turtle_advanced"
@@ -154,7 +155,17 @@ function hasEnoughSpace()
   return turtle.getItemCount(16 - minimumSpaceAfterCleanup + 1) == 0
 end
 
+function hasEnoughFuel()
+  print("Fuel: " .. turtle.getFuelLevel() .. ", Requires: " .. minimumFuel)
+  
+  return turtle.getFuelLevel() >= minimumFuel
+end
+
 function main()
+  if not hasEnoughFuel() then
+    error("Stopping due to insufficient fuel level")
+  end
+  
   initializeScanner()
   depth = 0
   local reachedBottom = false
