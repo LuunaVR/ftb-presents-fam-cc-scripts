@@ -21,7 +21,7 @@ local blockColors = {
 -- Initialize global variables
 local scanner, ignoreSet, filterSet
 local ignoreList = {"bedrock", "deepslate", "cobbled_deepslate", "dirt", "grass_block", "stone", "tuff", "turtle_advanced"}
-local filterList = {"diamond_ore", "iron_ore", "gold_ore", "coal_ore"}
+local filterList = {"diamond_ore"}
  
 function initializeScanner()
     term.setCursorPos(1, 1)
