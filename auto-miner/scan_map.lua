@@ -59,7 +59,7 @@ function displayMapBackground(blocksForMap)
     end
  
     -- Place the center character
-    term.setCursorPos(center, center)
+    term.setCursorPos(center-1, center-1)
     write(centerChar)
  
     -- Apply blocks' offsets to the map
