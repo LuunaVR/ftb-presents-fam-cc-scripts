@@ -15,20 +15,9 @@ if confirm == "y" then
 
   -- Construct the formatted message
   local message = {
-    { text = "Click " },
-    {
-      text = "H",
-      color = "blue",
-      bold = true,
-      clickEvent = {
-        action = "run_command",
-        value = "me bark"
-      }
-    },
-    { text = " to receive 4 diamonds " },
     {
       text = "diamond",
-      color = "light_blue",
+      color = "blue",
       italic = true,
       hoverEvent = {
         action = "show_item",
@@ -36,6 +25,26 @@ if confirm == "y" then
           id = "minecraft:diamond",
           count = 1
         }
+      },
+      clickEvent = {
+        action = "run_command",
+        value = "me bark"
+      },
+    },
+    {
+      text = "(click to receive)",
+      color = "aqua",
+      bold = true,
+      hoverEvent = {
+        action = "show_item",
+        contents = {
+          id = "minecraft:diamond",
+          count = 1
+        }
+      },
+      clickEvent = {
+        action = "run_command",
+        value = "me bark"
       }
     }
   }
