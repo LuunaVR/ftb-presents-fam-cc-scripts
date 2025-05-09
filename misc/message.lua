@@ -3,6 +3,8 @@ local chatBox = peripheral.find("chatBox")  -- Automatically finds the Chat Box 
 -- Player list to send to when sending to all
 local players = {"foeslayerx","lunabear01","luunavr","mystic271","perolith","tantebouster"}
 
+local rickroll = "YOU HAVE BEEN RICK ROLLED!! We're no strangers to love...You know the rules and so do I...A full commitment's what I'm thinking of...."
+
 -- Confirm to send
 term.write("Send prank message? Y/N: ")
 local confirm = string.lower(read())
@@ -16,9 +18,16 @@ if confirm == "y" then
   -- Construct the formatted message
   local message = {
     {
-      text = "diamond",
+      text = "Awarding ",
+      color = "white",
+      clickEvent = {
+        action = "suggest_command",
+        value = rickroll
+      }
+    },
+    {
+      text = "4 Diamonds",
       color = "blue",
-      italic = true,
       hoverEvent = {
         action = "show_item",
         contents = {
@@ -27,13 +36,13 @@ if confirm == "y" then
         }
       },
       clickEvent = {
-        action = "run_command",
-        value = "me bark"
+        action = "suggest_command",
+        value = rickroll
       },
     },
     {
-      text = "(click to receive)",
-      color = "aqua",
+      text = "(click to accept)",
+      color = "white",
       bold = true,
       hoverEvent = {
         action = "show_item",
@@ -44,7 +53,7 @@ if confirm == "y" then
       },
       clickEvent = {
         action = "run_command",
-        value = "me bark"
+        value = rickroll
       }
     }
   }
