@@ -1,9 +1,9 @@
-local chatBox = peripheral.find("chatBox")
+local chatBox = peripheral.find("chatBox")  -- Automatically finds the Chat Box peripheral
 
--- Player list
+-- Player list to send to when sending to all
 local players = {"foeslayerx","lunabear01","luunavr","mystic271","perolith","tantebouster"}
 
--- Prompt user
+-- Confirm to send
 term.write("Send prank message? Y/N: ")
 local confirm = string.lower(read())
 print("")
@@ -13,25 +13,22 @@ if confirm == "y" then
   local all = string.lower(read())
   print("")
 
-  -- Message content
+  -- Construct the formatted message
   local message = {
-    { text = "Click ", color = "white" },
+    { text = "Click " },
     {
-      text = "[here]",
-      color = "aqua",
-      underlined = true,
+      text = "H",
+      color = "blue",
+      bold = true,
       clickEvent = {
-        action = "run_command",
-        value = "/me has donated their soul to Luuna"
+        action = "suggest_command",
+        value = "/me is stinky"
       }
     },
-    {
-      text = " for a ",
-      color = "white"
-    },
+    { text = " to claim your " },
     {
       text = "diamond",
-      color = "blue",
+      color = "white",
       italic = true,
       hoverEvent = {
         action = "show_item",
@@ -40,10 +37,6 @@ if confirm == "y" then
           count = 1
         }
       }
-    },
-    {
-      text = "!",
-      color = "white"
     }
   }
 
@@ -53,13 +46,13 @@ if confirm == "y" then
     for _, name in ipairs(players) do
       chatBox.sendFormattedMessageToPlayer(json, name)
     end
-    print("Sent to all.")
+    print("Message sent to all players.")
   else
     term.write("Enter player name: ")
     local name = read()
     print("")
     chatBox.sendFormattedMessageToPlayer(json, name)
-    print("Sent to " .. name)
+    print("Message sent to " .. name)
   end
 else
   print("Cancelled.")
