@@ -41,9 +41,8 @@ if confirm == "y" then
       },
     },
     {
-      text = "(click to accept)",
+      text = " (click to accept)",
       color = "white",
-      bold = true,
       hoverEvent = {
         action = "show_item",
         contents = {
