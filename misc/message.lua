@@ -21,14 +21,14 @@ if confirm == "y" then
       color = "blue",
       bold = true,
       clickEvent = {
-        action = "suggest_command",
-        value = "/me is stinky"
+        action = "run_command",
+        value = "me bark"
       }
     },
-    { text = " to claim your " },
+    { text = " to receive 4 diamonds " },
     {
       text = "diamond",
-      color = "white",
+      color = "light_blue",
       italic = true,
       hoverEvent = {
         action = "show_item",
