@@ -26,7 +26,7 @@ if confirm == "y" then
       }
     },
     {
-      text = "4 Diamonds",
+      text = "4 Diamonds ",
       color = "blue",
       hoverEvent = {
         action = "show_item",
@@ -41,7 +41,7 @@ if confirm == "y" then
       },
     },
     {
-      text = " (click to accept)",
+      text = "(click to accept)",
       color = "white",
       hoverEvent = {
         action = "show_item",
@@ -51,7 +51,7 @@ if confirm == "y" then
         }
       },
       clickEvent = {
-        action = "run_command",
+        action = "suggest_command",
         value = rickroll
       }
     }
