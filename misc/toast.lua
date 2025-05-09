@@ -1,40 +1,38 @@
-local chatBox = peripheral.wrap("right")
+local chatBox = peripheral.find("chatBox")
 
--- Get message
-print("Enter your message: ")
-local input = read()
+-- Player list
+local players = {"foeslayerx","lunabear01","luunavr","mystic271","perolith","tantebouster"}
+
+-- Input message
+term.write("Enter your toast message: ")
+local msg = read()
 print("")
 
--- Ask if should send to all
-print("Send to all? Y/N: ")
-local sendToAll = read()
+-- Ask if it should go to all
+term.write("Send to all? Y/N: ")
+local sendToAll = string.lower(read())
 print("")
 
--- Format toast
+-- Toast content
 local title = {
   { text = "Alert", color = "red", bold = true }
 }
 local message = {
-  { text = input, color = "light_purple" }
+  { text = msg, color = "white" }
 }
-
 local titleJson = textutils.serializeJSON(title)
 local messageJson = textutils.serializeJSON(message)
 
--- Convert input to lowercase
-sendToAll = string.lower(sendToAll)
-
+-- Send
 if sendToAll == "y" then
-  local players = chatBox.getOnlinePlayers()
-  for _, player in ipairs(players) do
-    chatBox.sendFormattedToastToPlayer(messageJson, titleJson, player)
+  for _, name in ipairs(players) do
+    chatBox.sendFormattedToastToPlayer(messageJson, titleJson, name)
   end
   print("Toast sent to all players.")
 else
-  -- Ask for single player
-  print("Enter target player: ")
-  local player = read()
+  term.write("Enter player name: ")
+  local name = read()
   print("")
-  chatBox.sendFormattedToastToPlayer(messageJson, titleJson, player)
-  print("Toast sent to " .. player .. ".")
+  chatBox.sendFormattedToastToPlayer(messageJson, titleJson, name)
+  print("Toast sent to " .. name .. ".")
 end
