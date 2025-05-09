@@ -22,10 +22,29 @@ if confirm == "y" then
       underlined = true,
       clickEvent = {
         action = "run_command",
-        value = "/me is stinky"
+        value = "/me has donated their soul to Luuna"
       }
     },
-    { text = " for free diamonds.", color = "white" }
+    {
+      text = " for a ",
+      color = "white"
+    },
+    {
+      text = "diamond",
+      color = "blue",
+      italic = true,
+      hoverEvent = {
+        action = "show_item",
+        contents = {
+          id = "minecraft:diamond",
+          count = 1
+        }
+      }
+    },
+    {
+      text = "!",
+      color = "white"
+    }
   }
 
   local json = textutils.serializeJSON(message)
