@@ -1,0 +1,20 @@
+-- Performs chunkAnalyze with GeoScanner and saves result
+ 
+local FILE_NAME = "chunk_analyze.json"
+ 
+local geoscanner = peripheral.find("geoScanner")
+if not geoscanner then
+  error("GeoScanner not found")
+end
+ 
+ 
+local success, data = pcall(geoscanner.chunkAnalyze)
+if not success then
+  error("Scan failed" .. tostring(data))
+end
+ 
+local file = fs.open(FILE_NAME, "w")
+file.write(textutils.serialize(data))
+file.close()
+ 
+print("Scan written to " .. FILE_NAME)
