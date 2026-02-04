@@ -11,7 +11,8 @@ local refresh = 2
 local blockColors = {
     ancient_debris = {color = colors.brown, label = "R"},
     diamond_ore = {color = colors.lightBlue, label = "D"},
-    zinc = {color = colors.lightGray, label = "Z"}
+    zinc = {color = colors.lightGray, label = "Z"},
+	allthemodium_ore = {color = colors.orange, label = "M"}
 }
 --    coal_ore = {color = colors.black, label = "C"},
 --    gold_ore = {color = colors.orange, label = "G"},
@@ -73,12 +74,12 @@ function displayMapBackground(blocksForMap)
             for key, value in pairs(blockColors) do
                 if string.find(block.name, key) then
                     term.setBackgroundColor(value.color)
-                    if block.y < 0 then
-					                   label= string.lower(label)
-					               else 
-					                   label = string.upper(label)
-					               end
-                    write(label)
+					if block.y < 0 then
+					    label= string.lower(label)
+					else 
+					    label = string.upper(label)
+					end
+                    write(value.label)
                     found = true
                     break
                 end
@@ -104,7 +105,7 @@ function main()
     for _, block in ipairs(scanResults) do
         local blockName = block.name:match("([^:]+)$")  -- Removes mod name from block name
         if not ignoreSet[blockName] then
-            table.insert(blocksForMap, {name = blockName, x = block.x, z = block.z})
+            table.insert(blocksForMap, {name = blockName, x = block.x, y =  block.y, z = block.z})
         end
     end
  
