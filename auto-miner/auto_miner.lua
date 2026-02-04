@@ -16,13 +16,13 @@ local allowedBlocks = {
 }
 
 local controller = TurtleController.new()
-local scanner = peripheral.find("geoScanner")
+local scanner = peripheral.find("geo_scanner")
 
 function initializeScanner()
   term.setCursorPos(1, 1)
   print(string.rep(" ", term.getSize()))  -- Clear the line where cursor is positioned
   depth = 0;
-  scanner = peripheral.find("geoScanner")
+  scanner = peripheral.find("geo_scanner")
   if not scanner then
     print("No geo scanner found. Please attach a geo scanner.")
     return false
