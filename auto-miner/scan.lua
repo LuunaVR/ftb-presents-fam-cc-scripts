@@ -19,7 +19,7 @@ local scanRadius = argRadius or defaultRadius
 term.clear()
 term.setCursorPos(1, 1)
  
-local scanner = peripheral.find("Geo Scanner")
+local scanner = peripheral.find("geo_scanner")
 if not scanner then
   print("No geo scanner found. Please attach a geo scanner.")
   return
