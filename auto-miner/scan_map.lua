@@ -12,7 +12,7 @@ local blockColors = {
     ancient_debris = {color = colors.brown, label = "R"},
     diamond_ore = {color = colors.lightBlue, label = "D"},
     zinc = {color = colors.lightGray, label = "Z"},
-	allthemodium_ore = {color = colors.orange, label = "M"}
+    allthemodium_ore = {color = colors.orange, label = "M"}
 }
 --    coal_ore = {color = colors.black, label = "C"},
 --    gold_ore = {color = colors.orange, label = "G"},
