@@ -10,7 +10,8 @@ local refresh = 2
 -- Color and label hashmap for blocks
 local blockColors = {
     ancient_debris = {color = colors.brown, label = "R"},
-    diamond_ore = {color = colors.lightBlue, label = "D"}
+    diamond_ore = {color = colors.lightBlue, label = "D"},
+    zinc = {color = colors.lightGray, label = "Z"}
 }
 --    coal_ore = {color = colors.black, label = "C"},
 --    gold_ore = {color = colors.orange, label = "G"},
