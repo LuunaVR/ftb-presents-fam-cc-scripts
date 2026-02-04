@@ -28,7 +28,7 @@ function initializeScanner()
     term.setCursorPos(1, 1)
     print(string.rep(" ", term.getSize()))  -- Clear the line where cursor is positioned
  
-    scanner = peripheral.find("geoScanner")
+    scanner = peripheral.find("Geo Scanner")
     if not scanner then
         print("No geo scanner found. Please attach a geo scanner.")
         return false
