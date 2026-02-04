@@ -73,7 +73,12 @@ function displayMapBackground(blocksForMap)
             for key, value in pairs(blockColors) do
                 if string.find(block.name, key) then
                     term.setBackgroundColor(value.color)
-                    write(value.label)
+                    if block.y < 0 then
+					                   label= string.lower(label)
+					               else 
+					                   label = string.upper(label)
+					               end
+                    write(label)
                     found = true
                     break
                 end
