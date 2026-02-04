@@ -11,10 +11,10 @@ local refresh = 2
 local blockColors = {
     ancient_debris = {color = colors.brown, label = "R"},
     diamond_ore = {color = colors.lightBlue, label = "D"},
+    gold_ore = {color = colors.orange, label = "G"},
     zinc = {color = colors.lightGray, label = "Z"}
 }
 --    coal_ore = {color = colors.black, label = "C"},
---    gold_ore = {color = colors.orange, label = "G"},
 --    iron_ore = {color = colors.lightGray, label = "I"},
 --    lapis_ore = {color = colors.blue, label = "L"},
 --    redstone_ore = {color = colors.red, label = "R"}
