@@ -3,7 +3,7 @@
 -- Configurations
 local REFRESH_INTERVAL = 5
 
-local geoScanner = peripheral.find("geoScanner")
+local geoScanner = peripheral.find("Geo Scanner")
 if not geoScanner then
   print("GeoScanner not found")
   return
