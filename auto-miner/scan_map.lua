@@ -11,8 +11,7 @@ local refresh = 2
 local blockColors = {
     ancient_debris = {color = colors.brown, label = "R"},
     diamond_ore = {color = colors.lightBlue, label = "D"},
-    zinc = {color = colors.lightGray, label = "Z"},
-    allthemodium_ore = {color = colors.orange, label = "M"}
+    zinc = {color = colors.lightGray, label = "Z"}
 }
 --    coal_ore = {color = colors.black, label = "C"},
 --    gold_ore = {color = colors.orange, label = "G"},
@@ -75,11 +74,11 @@ function displayMapBackground(blocksForMap)
                 if string.find(block.name, key) then
                     term.setBackgroundColor(value.color)
 					if block.y < 0 then
-					    label= string.lower(label)
+					    label = string.lower(value.label)
 					else 
-					    label = string.upper(label)
+					    label = string.upper(value.label)
 					end
-                    write(value.label)
+                    write(label)
                     found = true
                     break
                 end
