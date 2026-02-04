@@ -13,12 +13,12 @@ local blockColors = {
     diamond_ore = {color = colors.lightBlue, label = "D"},
     gold_ore = {color = colors.orange, label = "G"},
     zinc = {color = colors.lightGray, label = "Z"},
-    modium = {color = colors.orange, label = "M"}
+    modium = {color = colors.orange, label = "M"},
+    redstone_ore = {color = colors.red, label = "R"}
 }
 --    coal_ore = {color = colors.black, label = "C"},
 --    iron_ore = {color = colors.lightGray, label = "I"},
 --    lapis_ore = {color = colors.blue, label = "L"},
---    redstone_ore = {color = colors.red, label = "R"}
 --}
  
 -- Initialize global variables
