@@ -1,11 +1,11 @@
 -- Configuration outside the function
-local defaultRadius = 10
+local defaultRadius = 12
 local showUnknown = false
 local size = (defaultRadius * 2) + 1  -- Calculate size based on radius
 local backgroundColor = colors.gray
 local centerChar = "+"
 local center = math.floor(size / 2) + 1  -- Dynamically calculate the center based on size
-local refresh = 2
+local refresh = 1
  
 -- Color and label hashmap for blocks
 local blockColors = {
