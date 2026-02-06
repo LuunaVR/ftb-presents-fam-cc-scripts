@@ -11,8 +11,9 @@ local refresh = 1
 local blockColors = {
     ancient_debris = {color = colors.brown, label = "R"},
     diamond_ore = {color = colors.lightBlue, label = "D"},
-    allthemodium_ore = {color = colors.orange, label = "M"},
-    suspicious = {color = colors.lightGray, label = "S"}
+    modium = {color = colors.orange, label = "M"},
+    suspicious = {color = colors.lightGray, label = "S"},
+	uranite = {color = colors.lime , label = "U"}
 }
 --    coal_ore = {color = colors.black, label = "C"},
 --    iron_ore = {color = colors.lightGray, label = "I"},
