@@ -13,7 +13,7 @@ local blockColors = {
     diamond_ore = {color = colors.lightBlue, label = "D"},
     modium = {color = colors.orange, label = "M"},
     suspicious = {color = colors.lightGray, label = "S"},
-	uranite = {color = colors.lime , label = "U"}
+    uranite = {color = colors.lime , label = "U"}
 }
 --    coal_ore = {color = colors.black, label = "C"},
 --    iron_ore = {color = colors.lightGray, label = "I"},
