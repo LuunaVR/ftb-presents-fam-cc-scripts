@@ -14,7 +14,7 @@ local blockColors = {
     modium = {color = colors.orange, label = "M"},
     suspicious = {color = colors.lightGray, label = "S"},
     uraninite = {color = colors.lime , label = "U"},
-    vibranium = {color = lime, label = "V"},
+    vibranium = {color = colors.lime, label = "V"},
     unobtainium = {color = colors.purple, label = "U"}
 	
 }
