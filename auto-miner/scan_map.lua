@@ -15,7 +15,7 @@ local blockColors = {
     suspicious = {color = colors.lightGray, label = "S"},
     uraninite = {color = colors.lime , label = "U"},
     vibranium = {color = lime, label = "V"},
-	unobtainium = {color = colors.purple, label = "U"}
+    unobtainium = {color = colors.purple, label = "U"}
 	
 }
 --    coal_ore = {color = colors.black, label = "C"},
